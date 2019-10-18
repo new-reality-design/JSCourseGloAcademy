@@ -16,6 +16,7 @@ console.log('Длина строки "income"-');
 console.log(income.length);
 
 //3
+console.log('Цель-');
 console.log('За период длиной в ' + period + ' месяцев-');
 console.log('я хочу накопить ' + mission + ' фунтов.');
 
