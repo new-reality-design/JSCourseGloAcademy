@@ -1,6 +1,6 @@
-let money = 1200; //Доход в месяц
+let money = 1200; //Доход за месяц
 let income = 'Овертайм, помощь соседям, присмотр за животными';
-let addExpenses = 'Коммунальные услуги. Покупки. Транспорт. Одежда';
+let addExpenses = 'Коммунальные услуги, Покупки, Транспорт, Одежда';
 let deposit = true;
 let mission = 3000; //Сумма к накоплению
 let period = 12; //Период в месяцах
@@ -24,9 +24,7 @@ console.log('я хочу накопить ' + mission + ' фунтов.');
 console.log('"addExpenses" в нижнем регистре-');
 console.log(addExpenses.toLowerCase());
 console.log('"addExpenses" в виде массива-');
-console.log(addExpenses.split('. '));
-//console.log('В одну строку-');
-//console.log(addExpenses.toLowerCase(), addExpenses.split('. '));
+console.log(addExpenses.split(', '));
 
 //5
 let budgetDay = money / 30;
