@@ -7,18 +7,18 @@ let money = parseFloat(question);
 function isNumeric(money) {
   return !isNaN(parseFloat(money)) && Number.isFinite(money);
 }
+
 if (isNumeric(money) === true) {
 } else {
   alert('Убедитесь что вы используете цифры и попробуйте снова');
   prompt('Ваш месячный доход? Пожалуйста, используйте цифры.');
-  //?как в случае ввода символов возвращать пользователя на первое окно ввода?
 }
 
 //2
 let addExpenses = prompt(
   'Перечислите возможные расходы за рассчитываемый период через запятую. (Бытовые расходы, Транспорт, Банковский депозит)'
 );
-console.log(addExpenses.split(', '));
+console.log(addExpenses.toLowerCase().split(', '));
 
 //3
 let deposit = confirm('Есть ли у вас депозит в банке?');
@@ -58,7 +58,7 @@ console.log('доход за месяц: ', budgetMonth);
 //7
 let mission = 5000; //Сумма к накоплению
 
-let finishMission = mission / budgetMonth;
+let finishMission = mission / budgetMonth; //посчитать за сколько месяцев будет достигнута цель mission
 console.log('finishMission: ', Math.ceil(finishMission));
 
 //8
@@ -76,31 +76,3 @@ if (budgetDayRound >= 50) {
 } else if (budgetDayRound <= 0) {
   console.log('“Что-то пошло не так”');
 }
-/*
-Написать конструкцию условий	
-Если budgetDay больше 800, то “Высокий уровень дохода”
-Если budgetDay больше 300 и меньше 800, то сообщение “Средний уровень дохода”
-Если budgetDay больше 0 и меньше 300 то в консоль вывести сообщение “Низкий уровень дохода”
-Если отрицательное значение то вывести “Что то пошло не так”
-учесть варианты 0, 300 и 800
-*/
-/*
-*
-*
-*
-*
-*
-*
-*
-*
-let money = 1200; //Доход за месяц
-let income = 'Овертайм, помощь соседям, присмотр за животными';
-let period = 12; //Период в месяцах *.
-
-console.log('"addExpenses" в нижнем регистре-');
-console.log(addExpenses.toLowerCase());
-console.log('"addExpenses" в виде массива-');
-console.log(addExpenses.split(', '));
-
-let budgetDay = money / 30;
-*/
