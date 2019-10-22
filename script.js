@@ -62,11 +62,11 @@ let budgetDayRound = Math.floor(budgetDay);
 console.log('budgetDay: ', budgetDayRound);
 
 //9  (Остаток- от 50 до 0 фунтов в день.)
-if (budgetDayRound >= 50) {
+if (budgetDayRound >= 800) {
   console.log('“Высокий уровень дохода”');
-} else if (budgetDayRound >= 25 && budgetDayRound < 50) {
+} else if (budgetDayRound >= 300 && budgetDayRound < 800) {
   console.log('“Средний уровень дохода”');
-} else if (budgetDayRound > 0 && budgetDayRound < 25) {
+} else if (budgetDayRound > 0 && budgetDayRound < 300) {
   console.log('“Низкий уровень дохода”');
 } else if (budgetDayRound <= 0) {
   console.log('“Что-то пошло не так”');
