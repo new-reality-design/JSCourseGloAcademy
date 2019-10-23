@@ -26,10 +26,16 @@ let deposit = confirm('Есть ли у вас депозит в банке?');
 //4
 let income = 'зарплата, помощь соседям, присмотр за животными';
 
-console.log('money: ', typeof money);
-console.log('income: ', typeof income);
-console.log('deposit: ', typeof deposit);
-
+let showTypeOf = function(data) {
+  console.log(data, typeof data); //kakie-to dannie
+};
+showTypeOf(money);
+showTypeOf(income);
+showTypeOf(deposit);
+// console.log('money: ', typeof money);
+// console.log('income: ', typeof income);
+// console.log('deposit: ', typeof deposit);
+console.log(income.length);
 //5
 let monthlyExpenses1 = prompt(
   'Какие обязательные ежемесячные расходы у вас есть?'
@@ -54,20 +60,27 @@ let mission = 5000; //Сумма к накоплению
 
 //Посчитать за сколько месяцев будет достигнута цель mission
 let finishMission = mission / budgetMonth;
-console.log('finishMission: ', Math.ceil(finishMission));
+console.log('Цель будет достигнута за ', Math.ceil(finishMission), ' месяц');
 
 //8
 let budgetDay = budgetMonth / 30;
 let budgetDayRound = Math.floor(budgetDay);
-console.log('budgetDay: ', budgetDayRound);
+console.log('Бюджет на день: ', budgetDayRound);
 
 //9  (Остаток- от 50 до 0 фунтов в день.)
-if (budgetDayRound >= 800) {
-  console.log('“Высокий уровень дохода”');
-} else if (budgetDayRound >= 300 && budgetDayRound < 800) {
-  console.log('“Средний уровень дохода”');
-} else if (budgetDayRound > 0 && budgetDayRound < 300) {
-  console.log('“Низкий уровень дохода”');
-} else if (budgetDayRound <= 0) {
-  console.log('“Что-то пошло не так”');
-}
+
+let getStatusIncome = function() {
+  if (budgetDayRound >= 800) {
+    return '“Высокий уровень дохода”';
+  } else if (budgetDayRound >= 300 && budgetDayRound < 800) {
+    return '“Средний уровень дохода”';
+  } else if (budgetDayRound > 0 && budgetDayRound < 300) {
+    return '“Низкий уровень дохода”';
+  } else {
+    return '“Что-то пошло не так”';
+  }
+};
+
+console.log(getStatusIncome());
+
+//(budgetDayRound <= 0)
