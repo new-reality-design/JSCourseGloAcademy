@@ -56,7 +56,7 @@ let budgetMonth = money - (totalExpensesNum1 + totalExpensesNum2);
 console.log('доход за месяц: ', budgetMonth);
 
 //7
-let mission = 5000; //Сумма к накоплению
+let mission = 30000; //Сумма к накоплению
 
 //Посчитать за сколько месяцев будет достигнута цель mission
 let finishMission = mission / budgetMonth;
@@ -80,7 +80,15 @@ let getStatusIncome = function() {
     return '“Что-то пошло не так”';
   }
 };
-
 console.log(getStatusIncome());
 
-//(budgetDayRound <= 0)
+/////////////////////////////////////////////
+function getExpensesMonth(a, b) {
+  //const expensesAll = a + b;
+  return totalExpensesNum1 + totalExpensesNum2;
+}
+getExpensesMonth(totalExpensesNum1, totalExpensesNum2);
+console.log('Тут- функция getExpensesMonth');
+console.log(getExpensesMonth());
+/*1) Создать следующие функции: ///функция  getExpensesMonth. Функция возвращает сумму всех расходов за месяц— 
+функция getAccumulatedMonth. Функция возвращает Накопления за месяц (Доходы минус расходы)Результат сохранить в переменную accumulatedMonth— функция  getTargetMonth. Подсчитывает за какой период будет достигнута цель, зная результат месячного накопления и возвращает результат*/
