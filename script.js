@@ -74,23 +74,25 @@ const getStatusIncome = function() {
 console.log(getStatusIncome()); //remain
 
 //Сумма расходов за месяц
-function getExpensesMonth(a, b) {
+function getExpensesMonth() {
   return totalExpensesNum1 + totalExpensesNum2;
 }
-getExpensesMonth(totalExpensesNum1, totalExpensesNum2);
+getExpensesMonth(); //totalExpensesNum1, totalExpensesNum2
 
 //Накопления за месяц (Доходы минус расходы)
-function getAccumulatedMonth(c, d) {
+function getAccumulatedMonth() {
+  //c, d
   return money - getExpensesMonth();
 }
-getAccumulatedMonth(money, getExpensesMonth());
+getAccumulatedMonth(); //money, getExpensesMonth()
 const accumulatedMonth = getAccumulatedMonth();
 
 //За какой период будет достигнута цель
-function getTargetMonth(e, f) {
+function getTargetMonth() {
+  //e, f
   return mission / accumulatedMonth;
 }
-getTargetMonth(mission, accumulatedMonth);
+getTargetMonth(); //mission, accumulatedMonth
 
 //Накопления за "период" - число месяцев произвольное
 period = 4;
