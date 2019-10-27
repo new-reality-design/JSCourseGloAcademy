@@ -1,24 +1,32 @@
 'use strict';
+// let question = prompt('Ваш месячный доход? Укажите сумму в цифрах.'),
+//   money = parseFloat(question);
 
-//1
-let question = prompt('Ваш месячный доход? Укажите сумму в цифрах.'),
-  money = parseFloat(question);
-
-function isNumeric(money) {
+/*function isNumeric(money) {
   return !isNaN(parseFloat(money)) && Number.isFinite(money);
 }
 if (isNumeric(money)) {
 } else {
   alert('Убедитесь что вы используете цифры и попробуйте снова');
   prompt('Ваш месячный доход? Пожалуйста, используйте цифры.');
-}
-//2
+} */
+//
+let money; // = +prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
+
+let start = function() {
+  money = prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
+  while (isNaN(money) || money === '' || money === null) {
+    money = prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
+  }
+};
+start();
+//
 let addExpenses = prompt(
   'Перечислите возможные расходы за рассчитываемый период через запятую. (Бытовые расходы, Транспорт, Банковский депозит)'
 );
-//3
+
 let deposit = confirm('Есть ли у вас депозит в банке?');
-//4
+
 let income = 'помощь соседям, присмотр за животными';
 
 const showTypeOf = function(data) {
@@ -28,20 +36,7 @@ showTypeOf(money);
 showTypeOf(income);
 showTypeOf(deposit);
 
-//5
 let monthlyExpenses1, monthlyExpenses2;
-// let monthlyExpenses1 = prompt(
-//     'Какие обязательные ежемесячные расходы у вас есть?',
-//     'Транспорт и квартплата'
-//   ),
-//   //totalExpenses1 = +prompt('Во сколько это обойдется?', '10000'),
-//   //totalExpensesNum1 = parseFloat(totalExpenses1),
-//   monthlyExpenses2 = prompt(
-//     'Какие другие обязательные ежемесячные расходы у вас есть?',
-//     'Банковский депозит'
-//   );
-// //totalExpenses2 = +prompt('Во сколько это обойдется?', '10000');
-// //totalExpensesNum2 = parseFloat(totalExpenses2);
 
 //Сумма расходов за месяц
 const getExpensesMonth = function() {
@@ -67,23 +62,18 @@ const getExpensesMonth = function() {
 };
 let expensesAmount = getExpensesMonth(); //Тут- результ. вызова Ф.
 
-//6
-let budgetMonth = money - expensesAmount; //(totalExpenses1 + totalExpenses2);
+let budgetMonth = money - expensesAmount;
 
-//7
 let mission = 150000; //Сумма к накоплению
 
 //Посчитать за сколько месяцев будет достигнута цель mission
 let finishMission = mission / budgetMonth;
 
-//7-a
 let period = 12; //Период в месяцах
 
-//8
 let budgetDay = budgetMonth / 30;
 let budgetDayRound = Math.floor(budgetDay);
 
-//9
 const getStatusIncome = function() {
   if (budgetDayRound >= 800) {
     return '“Высокий уровень дохода”';
