@@ -94,25 +94,18 @@ let accumulatedMonth = getAccumulatedMonth();
 
 //За какой период будет достигнута цель
 function getTargetMonth() {
-  switch (true) {
-    case mission / accumulatedMonth <= 0:
-      console.log('“Цель не будет достигнута.”');
-      break;
-    case mission / accumulatedMonth > 1:
-      return Math.floor(mission / accumulatedMonth);
+  let getSum = mission / accumulatedMonth;
+  if (getSum <= 0) {
+    console.log('“Цель не будет достигнута.”');
+  } else {
+    getSum = Math.floor(getSum);
+    console.log('Cрок достижения цели в месяцах:' + getSum);
+    return getSum;
   }
-
-  // if (mission / accumulatedMonth <= 0) {
-  //   console.log('“Цель не будет достигнута.”');
-  // } else {
-  //   return Math.floor(mission / accumulatedMonth);
-  // }
-  // accumulatedMonth = (mission / accumulatedMonth) <= 0 ?
-  //console.log('“Что-то пошло не так”') : mission / accumulatedMonth;
 }
 getTargetMonth(); //mission, accumulatedMonth
-console.log('Cрок достижения цели в месяцах:');
-console.log(getTargetMonth());
+// console.log('Cрок достижения цели в месяцах:');
+// console.log(getTargetMonth());
 
 //Накопления за "период" - число месяцев произвольное
 period = 4;
@@ -120,3 +113,13 @@ console.log('Накопления за период в ' + period + ' месяц
 console.log(accumulatedMonth * period);
 
 //Cрок достижения цели в месяцах (значение округлить в меньшую сторону)
+/*switch (true) {
+    case mission / accumulatedMonth <= 0:
+      console.log('“Цель не будет достигнута.”');
+      break;
+    case mission / accumulatedMonth > 1:
+      return Math.floor(mission / accumulatedMonth);
+  }*/
+
+// accumulatedMonth = (mission / accumulatedMonth) <= 0 ?
+//console.log('“Что-то пошло не так”') : mission / accumulatedMonth;
