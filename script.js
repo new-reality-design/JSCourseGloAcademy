@@ -103,9 +103,7 @@ function getTargetMonth() {
     return getSum;
   }
 }
-getTargetMonth(); //mission, accumulatedMonth
-// console.log('Cрок достижения цели в месяцах:');
-// console.log(getTargetMonth());
+getTargetMonth();
 
 //Накопления за "период" - число месяцев произвольное
 period = 4;
