@@ -1,36 +1,25 @@
 'use strict';
-// let question = prompt('Ваш месячный доход? Укажите сумму в цифрах.'),
-//   money = parseFloat(question);
 
-/*function isNumeric(money) {
-  return !isNaN(parseFloat(money)) && Number.isFinite(money);
-}
-if (isNumeric(money)) {
-} else {
-  alert('Убедитесь что вы используете цифры и попробуйте снова');
-  prompt('Ваш месячный доход? Пожалуйста, используйте цифры.');
-} */
-//
-let money; // = +prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
+let money;
 
 let start = function() {
-  money = prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
-  while (isNaN(money) || money === '' || money === null) {
+  do {
     money = prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
-  }
+  } while (isNaN(money) || money === '' || money === null);
 };
 start();
-//
+
 let addExpenses = prompt(
-  'Перечислите возможные расходы за рассчитываемый период через запятую. (Бытовые расходы, Транспорт, Банковский депозит)'
+  'Перечислите возможные расходы за рассчитываемый период через запятую.',
+  'Бытовые расходы, Транспорт'
 );
 
 let deposit = confirm('Есть ли у вас депозит в банке?');
 
-let income = 'помощь соседям, присмотр за животными';
+let income = 'Фриланс, парт-тайм';
 
 const showTypeOf = function(data) {
-  console.log(data, typeof data); //remain
+  console.log(data, typeof data);
 };
 showTypeOf(money);
 showTypeOf(income);
@@ -40,7 +29,10 @@ let monthlyExpenses1, monthlyExpenses2;
 
 //Сумма расходов за месяц
 const getExpensesMonth = function() {
-  let sum = 0; //лок.перем. для результ. суммир. обяз.расх, её будем возвр. при выз.Ф
+  let sum = 0,
+    sum1,
+    sum2;
+
   for (let i = 0; i < 2; i++) {
     //Временное условие x 2
     if (i === 0) {
@@ -48,18 +40,24 @@ const getExpensesMonth = function() {
         'Введите обязательную статью расходов?',
         'Транспорт и квартплата'
       );
+      do {
+        sum1 = +prompt('Во сколько это обойдется?', '15000');
+      } while (isNaN(sum1) || sum1 === '' || sum1 === 0 || sum1 === null);
     }
     if (i === 1) {
       monthlyExpenses2 = prompt(
         'Введите обязательную статью расходов?',
         'Расходы на питание'
       );
+      do {
+        sum2 = +prompt('Во сколько это обойдется?', '10000');
+      } while (isNaN(sum2) || sum2 === '' || sum2 === 0 || sum2 === null);
     }
-
-    sum += +prompt('Во сколько это обойдется?', '10000');
   }
-  return sum; //totalExpensesNum1 + totalExpensesNum2;
+  sum += sum1 + sum2;
+  return sum;
 };
+
 let expensesAmount = getExpensesMonth(); //Тут- результ. вызова Ф.
 
 let budgetMonth = money - expensesAmount;
@@ -85,27 +83,40 @@ const getStatusIncome = function() {
     return '“Что-то пошло не так”';
   }
 };
-console.log(getStatusIncome()); //remain
+console.log(getStatusIncome());
 
 //Накопления за месяц (Доходы минус расходы)
 function getAccumulatedMonth() {
   return money - expensesAmount;
 }
 getAccumulatedMonth();
-const accumulatedMonth = getAccumulatedMonth();
+let accumulatedMonth = getAccumulatedMonth();
 
 //За какой период будет достигнута цель
 function getTargetMonth() {
-  return mission / accumulatedMonth;
+  switch (true) {
+    case mission / accumulatedMonth <= 0:
+      console.log('“Цель не будет достигнута.”');
+      break;
+    case mission / accumulatedMonth > 1:
+      return Math.floor(mission / accumulatedMonth);
+  }
+
+  // if (mission / accumulatedMonth <= 0) {
+  //   console.log('“Цель не будет достигнута.”');
+  // } else {
+  //   return Math.floor(mission / accumulatedMonth);
+  // }
+  // accumulatedMonth = (mission / accumulatedMonth) <= 0 ?
+  //console.log('“Что-то пошло не так”') : mission / accumulatedMonth;
 }
 getTargetMonth(); //mission, accumulatedMonth
+console.log('Cрок достижения цели в месяцах:');
+console.log(getTargetMonth());
 
 //Накопления за "период" - число месяцев произвольное
 period = 4;
-
 console.log('Накопления за период в ' + period + ' месяца/цев:');
 console.log(accumulatedMonth * period);
 
 //Cрок достижения цели в месяцах (значение округлить в меньшую сторону)
-console.log('Cрок достижения цели в месяцах:');
-console.log(Math.floor(getTargetMonth()));
