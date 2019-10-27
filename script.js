@@ -12,15 +12,12 @@ if (isNumeric(money)) {
   alert('Убедитесь что вы используете цифры и попробуйте снова');
   prompt('Ваш месячный доход? Пожалуйста, используйте цифры.');
 }
-
 //2
 let addExpenses = prompt(
   'Перечислите возможные расходы за рассчитываемый период через запятую. (Бытовые расходы, Транспорт, Банковский депозит)'
 );
-
 //3
 let deposit = confirm('Есть ли у вас депозит в банке?');
-
 //4
 let income = 'помощь соседям, присмотр за животными';
 
@@ -32,19 +29,46 @@ showTypeOf(income);
 showTypeOf(deposit);
 
 //5
-let monthlyExpenses1 = prompt(
-    'Какие обязательные ежемесячные расходы у вас есть?'
-  ),
-  totalExpenses1 = prompt('Во сколько это обойдется?'),
-  totalExpensesNum1 = parseFloat(totalExpenses1),
-  monthlyExpenses2 = prompt(
-    'Какие другие обязательные ежемесячные расходы у вас есть?'
-  ),
-  totalExpenses2 = prompt('Во сколько это обойдется?'),
-  totalExpensesNum2 = parseFloat(totalExpenses2);
+let monthlyExpenses1, monthlyExpenses2;
+// let monthlyExpenses1 = prompt(
+//     'Какие обязательные ежемесячные расходы у вас есть?',
+//     'Транспорт и квартплата'
+//   ),
+//   //totalExpenses1 = +prompt('Во сколько это обойдется?', '10000'),
+//   //totalExpensesNum1 = parseFloat(totalExpenses1),
+//   monthlyExpenses2 = prompt(
+//     'Какие другие обязательные ежемесячные расходы у вас есть?',
+//     'Банковский депозит'
+//   );
+// //totalExpenses2 = +prompt('Во сколько это обойдется?', '10000');
+// //totalExpensesNum2 = parseFloat(totalExpenses2);
+
+//Сумма расходов за месяц
+const getExpensesMonth = function() {
+  let sum = 0; //лок.перем. для результ. суммир. обяз.расх, её будем возвр. при выз.Ф
+  for (let i = 0; i < 2; i++) {
+    //Временное условие x 2
+    if (i === 0) {
+      monthlyExpenses1 = prompt(
+        'Введите обязательную статью расходов?',
+        'Транспорт и квартплата'
+      );
+    }
+    if (i === 1) {
+      monthlyExpenses2 = prompt(
+        'Введите обязательную статью расходов?',
+        'Расходы на питание'
+      );
+    }
+
+    sum += +prompt('Во сколько это обойдется?', '10000');
+  }
+  return sum; //totalExpensesNum1 + totalExpensesNum2;
+};
+let expensesAmount = getExpensesMonth(); //Тут- результ. вызова Ф.
 
 //6
-let budgetMonth = money - (totalExpensesNum1 + totalExpensesNum2);
+let budgetMonth = money - expensesAmount; //(totalExpenses1 + totalExpenses2);
 
 //7
 let mission = 150000; //Сумма к накоплению
@@ -73,23 +97,15 @@ const getStatusIncome = function() {
 };
 console.log(getStatusIncome()); //remain
 
-//Сумма расходов за месяц
-function getExpensesMonth() {
-  return totalExpensesNum1 + totalExpensesNum2;
-}
-getExpensesMonth(); //totalExpensesNum1, totalExpensesNum2
-
 //Накопления за месяц (Доходы минус расходы)
 function getAccumulatedMonth() {
-  //c, d
-  return money - getExpensesMonth();
+  return money - expensesAmount;
 }
-getAccumulatedMonth(); //money, getExpensesMonth()
+getAccumulatedMonth();
 const accumulatedMonth = getAccumulatedMonth();
 
 //За какой период будет достигнута цель
 function getTargetMonth() {
-  //e, f
   return mission / accumulatedMonth;
 }
 getTargetMonth(); //mission, accumulatedMonth
