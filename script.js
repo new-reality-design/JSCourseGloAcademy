@@ -72,19 +72,6 @@ let period = 12; //Период в месяцах
 let budgetDay = budgetMonth / 30;
 let budgetDayRound = Math.floor(budgetDay);
 
-const getStatusIncome = function() {
-  if (budgetDayRound >= 800) {
-    return '“Высокий уровень дохода”';
-  } else if (budgetDayRound >= 300 && budgetDayRound < 800) {
-    return '“Средний уровень дохода”';
-  } else if (budgetDayRound > 0 && budgetDayRound < 300) {
-    return '“Низкий уровень дохода”';
-  } else {
-    return '“Что-то пошло не так”';
-  }
-};
-console.log(getStatusIncome());
-
 //Накопления за месяц (Доходы минус расходы)
 function getAccumulatedMonth() {
   return money - expensesAmount;
@@ -99,7 +86,7 @@ function getTargetMonth() {
     console.log('“Цель не будет достигнута.”');
   } else {
     getSum = Math.floor(getSum);
-    console.log('Cрок достижения цели в месяцах:' + getSum);
+    console.log('Cрок достижения цели в месяцах: ' + getSum);
     return getSum;
   }
 }
@@ -110,14 +97,16 @@ period = 4;
 console.log('Накопления за период в ' + period + ' месяца/цев:');
 console.log(accumulatedMonth * period);
 
-//Cрок достижения цели в месяцах (значение округлить в меньшую сторону)
-/*switch (true) {
-    case mission / accumulatedMonth <= 0:
-      console.log('“Цель не будет достигнута.”');
-      break;
-    case mission / accumulatedMonth > 1:
-      return Math.floor(mission / accumulatedMonth);
-  }*/
-
-// accumulatedMonth = (mission / accumulatedMonth) <= 0 ?
-//console.log('“Что-то пошло не так”') : mission / accumulatedMonth;
+//Вывод-
+const getStatusIncome = function() {
+  if (budgetDayRound >= 800) {
+    return '“Высокий уровень дохода”';
+  } else if (budgetDayRound >= 300 && budgetDayRound < 800) {
+    return '“Средний уровень дохода”';
+  } else if (budgetDayRound > 0 && budgetDayRound < 300) {
+    return '“Низкий уровень дохода”';
+  } else {
+    return '“Что-то пошло не так”';
+  }
+};
+console.log(getStatusIncome());
