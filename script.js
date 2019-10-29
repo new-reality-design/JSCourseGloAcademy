@@ -7,16 +7,17 @@ let start = function() {
     money = prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
   } while (isNaN(money) || money === '' || money === null);
 };
+
 start();
 
 let addExpenses = prompt(
-  'Перечислите возможные расходы за рассчитываемый период через запятую.',
-  'Бытовые расходы, Транспорт'
-);
-
-let deposit = confirm('Есть ли у вас депозит в банке?');
-
-let income = 'Фриланс, парт-тайм';
+    'Перечислите возможные расходы за рассчитываемый период через запятую.',
+    'Бытовые расходы, Транспорт'
+  ),
+  deposit = confirm('Есть ли у вас депозит в банке?'),
+  income = 'Фриланс, парт-тайм',
+  mission = 150000, //Сумма к накоплению
+  period = 12; //Период в месяцах
 
 const showTypeOf = function(data) {
   console.log(data, typeof data);
@@ -59,18 +60,12 @@ const getExpensesMonth = function() {
 };
 
 let expensesAmount = getExpensesMonth(); //Тут- результ. вызова Ф.
-
 let budgetMonth = money - expensesAmount;
 
-let mission = 150000; //Сумма к накоплению
-
 //Посчитать за сколько месяцев будет достигнута цель mission
-let finishMission = mission / budgetMonth;
-
-let period = 12; //Период в месяцах
-
-let budgetDay = budgetMonth / 30;
-let budgetDayRound = Math.floor(budgetDay);
+let finishMission = mission / budgetMonth,
+  budgetDay = budgetMonth / 30,
+  budgetDayRound = Math.floor(budgetDay);
 
 //Накопления за месяц (Доходы минус расходы)
 function getAccumulatedMonth() {
