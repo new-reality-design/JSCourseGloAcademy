@@ -99,46 +99,52 @@ let getExpensesMonth = function() {
   return sum;
 } */
 
-let expensesAmount = getExpensesMonth(); //Тут- результ. вызова Ф.
-let budgetMonth = money - appData.expensesAmount;
-
-//Посчитать за сколько месяцев будет достигнута цель mission
-let finishMission = appData.mission / budgetMonth,
-  budgetDay = budgetMonth / 30,
-  budgetDayRound = Math.floor(budgetDay);
+let expensesMonth = getExpensesMonth(); //Тут- результ. вызова Ф.
+console.log('Расходы за месяц: ' + expensesMonth);
 
 //Накопления за месяц (Доходы минус расходы)
-function getAccumulatedMonth() {
-  return money - expensesAmount;
-}
-getAccumulatedMonth();
-let accumulatedMonth = getAccumulatedMonth();
+let getAccumulatedMonth = function() {
+  return money - expensesMonth;
+};
 
 //За какой период будет достигнута цель
-function getTargetMonth() {
-  let getSum = appData.mission / accumulatedMonth;
-  if (getSum <= 0) {
-    console.log('“Цель не будет достигнута.”');
-  } else {
-    getSum = Math.floor(getSum);
-    console.log('Cрок достижения цели в месяцах: ' + getSum);
-    return getSum;
-  }
+let getTargetMonth = function() {
+  return appData.mission / getAccumulatedMonth();
+};
+
+let budgetDay = getAccumulatedMonth() / 30;
+
+//Посчитать за сколько месяцев будет достигнута цель mission
+if (getTargetMonth() > 0) {
+  console.log(
+    'Cрок достижения цели в месяцах: ' + Math.floor(getTargetMonth()) //lesson 4
+  );
+} else {
+  //getSum = ;
+  console.log('“Цель не будет достигнута.”');
 }
-getTargetMonth();
+
+//let budgetMonth = money - appData.expensesMonth;
+
+//let finishMission = appData.mission / budgetMonth,
+//budgetDay = budgetMonth / 30,
+//budgetDayRound = Math.floor(budgetDay);
+
+// getAccumulatedMonth();
+// let accumulatedMonth = getAccumulatedMonth();
 
 //Накопления за "период" - число месяцев произвольное
 appData.period = 4;
 console.log('Накопления за период в ' + appData.period + ' месяца/цев:');
-console.log(accumulatedMonth * appData.period);
+console.log(getAccumulatedMonth() * appData.period);
 
 //Вывод-
 const getStatusIncome = function() {
-  if (budgetDayRound >= 800) {
+  if (budgetDay >= 800) {
     return '“Высокий уровень дохода”';
-  } else if (budgetDayRound >= 300 && budgetDayRound < 800) {
+  } else if (budgetDay >= 300 && budgetDay < 800) {
     return '“Средний уровень дохода”';
-  } else if (budgetDayRound > 0 && budgetDayRound < 300) {
+  } else if (budgetDay > 0 && budgetDay < 300) {
     return '“Низкий уровень дохода”';
   } else {
     return '“Что-то пошло не так”';
