@@ -29,46 +29,44 @@ let appData = {
     );
     appData.addExpenses = addExpenses.toLowerCase().split(',');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
-  },
-  getExpensesMonth: function() {
-    let sum = 0;
-    let sum1, sum2, monthlyExpenses1, monthlyExpenses2;
-    for (let i = 0; i < 2; i++) {
-      if (i === 0) {
-        monthlyExpenses1 = prompt(
-          'Введите обязательную статью расходов?',
-          'Транспорт и квартплата'
-        );
-        do {
-          sum1 = +prompt('Во сколько это обойдется?', '15000');
-        } while (isNaN(sum1) || sum1 === '' || sum1 === 0 || sum1 === null);
-      }
-      if (i === 1) {
-        monthlyExpenses2 = prompt(
-          'Введите обязательную статью расходов?',
-          'Расходы на питание'
-        );
-        do {
-          sum2 = +prompt('Во сколько это обойдется?', '10000');
-        } while (isNaN(sum2) || sum2 === '' || sum2 === 0 || sum2 === null);
-      }
-    }
-    sum += sum1 + sum2;
-    return sum;
   }
 };
 //4) Функции getExpensesMonth, getAccumulatedMonth, getTargetMonth, getStatusIncome - сделать методами объекта AppData
-//income = 'Фриланс, парт-тайм', ?????
-//mission = 150000, //Сумма к накоплению ?????
-//period = 12; //Период в месяцах ?????
-
-/*const showTypeOf = function(data) {
-  console.log(data, typeof data);
+let expenses1, expenses2;
+let getExpensesMonth = function() {
+  let sum = 0,
+    question;
+  //let sum1, sum2;
+  for (let i = 0; i < 2; i++) {
+    if (i === 0) {
+      expenses1 = prompt(
+        'Введите обязательную статью расходов?',
+        'Транспорт и квартплата'
+      );
+    } else {
+      expenses2 = prompt(
+        'Введите обязательную статью расходов?',
+        'Расходы на питание'
+      );
+    }
+    do {
+      question = prompt('Во сколько это обойдется?', '10000');
+    } while (
+      isNaN(question) ||
+      question === '' ||
+      question === 0 ||
+      question === null
+    );
+    sum += +question;
+  }
+  return sum;
 };
-showTypeOf(money);
-showTypeOf(appData.income);
-showTypeOf(appData.deposit);*/
+// if (i === 1) {
 
+//   do {
+//     sum2 = +prompt('Во сколько это обойдется?', '10000');
+//   } while (isNaN(sum2) || sum2 === '' || sum2 === 0 || sum2 === null);
+// }
 //let monthlyExpenses1, monthlyExpenses2;
 
 //Сумма расходов за месяц
