@@ -48,20 +48,20 @@ let appData = {
   /////
   getExpensesMonth: function() {
     for (let key in appData.expenses) {
-      console.log(key);
+      console.log('KeY', key);
       appData.expensesMonth += +appData.expenses[key];
     }
   },
 
-  ////////Накопления за месяц (Доходы минус расходы)
+  ////////ЧИСТЫЕ накопления за месяц (Доходы минус расходы) "getAccumulatedMonth"
   getAccumulatedMonth: function() {
     return money - appData.expensesMonth;
   },
-  ////////За какой период будет достигнута цель
+  ////////За сколько месяцев будет достигнута цель? "getTargetMonth"
   getTargetMonth: function() {
     return appData.mission / appData.getAccumulatedMonth();
   },
-  ///////
+  ///////Оценка уровня дневного бюджета. "getStatusIncome"
   getStatusIncome: function() {
     if (budgetDay >= 800) {
       return '“Высокий уровень дохода”';
@@ -74,33 +74,29 @@ let appData = {
     }
   }
 };
+///////Вызов методов appData.asking
 appData.asking();
 appData.getExpensesMonth();
+appData.getAccumulatedMonth();
 appData.getTargetMonth();
 appData.getStatusIncome();
-//4) Функции getExpensesMonth, getAccumulatedMonth, getTargetMonth, getStatusIncome - сделать методами объекта AppData
-//let expenses1, expenses2;
 
-//let expensesMonth = appData.getExpensesMonth(); /////!!!!!!!!!!!!!!
-console.log('Расходы за месяц: ' + appData.expensesMonth); //Тут- результ. вызова Ф.
+//////////
+console.log('Расходы за месяц: ' + appData.expensesMonth);
 
-//Тут была getAccumulatedMonth
+let budgetDay = appData.getAccumulatedMonth() / 30; //Бюджет на день= Результат
+//ЧИСТЫХ накоплений за месяц= поделённый на 30.
 
-//Тут была getTargetMonth
-
-let budgetDay = appData.getAccumulatedMonth() / 30;
-
-//Посчитать за сколько месяцев будет достигнута цель mission
+//Посчитать за сколько месяцев будет достигнута цель накоплений- mission
 if (appData.getTargetMonth() > 0) {
   console.log(
     'Cрок достижения цели в месяцах: ' + Math.floor(appData.getTargetMonth()) //lesson 4
   );
 } else {
-  //getSum = ;
   console.log('“Цель не будет достигнута.”');
 }
 
-//Накопления за "период" - число месяцев произвольное
+//Накопления за "любой период" - число месяцев произвольное
 appData.period = 4;
 console.log('Накопления за период в ' + appData.period + ' месяца/цев:');
 console.log(appData.getAccumulatedMonth() * appData.period);
