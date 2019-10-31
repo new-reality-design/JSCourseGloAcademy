@@ -21,6 +21,13 @@ let appData = {
   budgetDay: 0,
   expensesMonth: 0,
   budgetMonth: 0,
+  getExpensesMonth: function() {
+    let sum = 0,
+      question,
+      expenses1,
+      expenses2;
+    return sum;
+  },
   asking: function() {
     //расспрос пользователя именно тут
     let addExpenses = prompt(
@@ -63,36 +70,29 @@ console.log('EXPENSES', appData['expenses']);
 
 //////////////////////////////////////////////
 
-appData.getExpensesMonth = function() {
-  let sum = 0,
-    question,
-    expenses1,
-    expenses2;
-  //let sum1, sum2;
-  //for (let i = 0; i < 2; i++) {
-  if (i === 0) {
-    expenses1 = prompt(
-      'Введите обязательную статью расходов?',
-      'Транспорт и квартплата'
-    );
-  } else {
-    expenses2 = prompt(
-      'Введите обязательную статью расходов?',
-      'Расходы на питание'
-    );
-  }
-  do {
-    question = prompt('Во сколько это обойдется?', '10000');
-  } while (
-    isNaN(question) ||
-    question === '' ||
-    question === 0 ||
-    question === null
-  );
-  sum += +question;
-  //}
-  return sum;
-};
+//let sum1, sum2;
+//for (let i = 0; i < 2; i++) {
+// if (i === 0) {
+//   expenses1 = prompt(
+//     'Введите обязательную статью расходов?',
+//     'Транспорт и квартплата'
+//   );
+// } else {
+//   expenses2 = prompt(
+//     'Введите обязательную статью расходов?',
+//     'Расходы на питание'
+//   );
+// }
+// do {
+//   question = prompt('Во сколько это обойдется?', '10000');
+// } while (
+//   isNaN(question) ||
+//   question === '' ||
+//   question === 0 ||
+//   question === null
+// );
+// sum += +question;
+// //}
 
 let expensesMonth = appData.getExpensesMonth(); //Тут- результ. вызова Ф.
 console.log('Расходы за месяц: ' + expensesMonth);
