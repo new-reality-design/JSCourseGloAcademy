@@ -22,36 +22,18 @@ let appData = {
   expensesMonth: 0,
   budgetMonth: 0,
   asking: function() {
-    //расспрос пользователя именно тут
     let addExpenses = prompt(
       'Перечислите возможные расходы за рассчитываемый период через запятую.',
       'Бытовые расходы, Транспорт'
     );
     appData.addExpenses = addExpenses.toLowerCase().split(',');
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
-    appData.expenses = prompt(
-      'Введите обязательную статью расходов?',
-      'Транспорт и квартплата'
-    );
-  },
-  /////
-  getExpensesMonth: function() {
-    let sum = 0,
-      question,
-      expenses1,
-      expenses2;
+    let expenses1, question;
     for (let i = 0; i < 2; i++) {
-      if (i === 0) {
-        expenses1 = prompt(
-          'Введите обязательную статью расходов?',
-          'Транспорт и квартплата'
-        );
-      } else {
-        expenses2 = prompt(
-          'Введите обязательную статью расходов?',
-          'Расходы на питание'
-        );
-      }
+      expenses1 = prompt(
+        'Введите обязательную статью расходов?',
+        'Транспорт и квартплата'
+      );
       do {
         question = prompt('Во сколько это обойдется?', '10000');
       } while (
@@ -60,15 +42,22 @@ let appData = {
         question === 0 ||
         question === null
       );
-      sum += +question;
+      appData.expenses[expenses1] = question;
     }
-    return sum;
   },
-  //////
+  /////
+  getExpensesMonth: function() {
+    for (let key in appData.expenses) {
+      console.log(key);
+      appData.expensesMonth += +appData.expenses[key];
+    }
+  },
+
+  ////////Накопления за месяц (Доходы минус расходы)
   getAccumulatedMonth: function() {
-    return money - expensesMonth;
+    return money - appData.expensesMonth;
   },
-  //////
+  ////////За какой период будет достигнута цель
   getTargetMonth: function() {
     return appData.mission / appData.getAccumulatedMonth();
   },
@@ -85,16 +74,18 @@ let appData = {
     }
   }
 };
+appData.asking();
+appData.getExpensesMonth();
+appData.getTargetMonth();
+appData.getStatusIncome();
 //4) Функции getExpensesMonth, getAccumulatedMonth, getTargetMonth, getStatusIncome - сделать методами объекта AppData
 //let expenses1, expenses2;
 
-let expensesMonth = appData.getExpensesMonth(); /////!!!!!!!!!!!!!!
-console.log('Расходы за месяц: ' + expensesMonth); //Тут- результ. вызова Ф.
+//let expensesMonth = appData.getExpensesMonth(); /////!!!!!!!!!!!!!!
+console.log('Расходы за месяц: ' + appData.expensesMonth); //Тут- результ. вызова Ф.
 
-//Накопления за месяц (Доходы минус расходы)
 //Тут была getAccumulatedMonth
 
-//За какой период будет достигнута цель
 //Тут была getTargetMonth
 
 let budgetDay = appData.getAccumulatedMonth() / 30;
