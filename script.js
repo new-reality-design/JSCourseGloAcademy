@@ -3,8 +3,8 @@
 let money,
   start = function() {
     do {
-      money = prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
-    } while (isNaN(money) || money === '' || money === null);
+      money = +prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
+    } while (isNaN(money) || money === ' ' || money === null || money === 0);
   };
 
 start();
@@ -17,11 +17,12 @@ let appData = {
   deposit: false,
   mission: 150000,
   period: 6,
-  budget: money,
+  budget: 0,
   budgetDay: 0,
   expensesMonth: 0,
   budgetMonth: 0,
   asking: function() {
+    appData.budget = money;
     let addExpenses = prompt(
       'Перечислите возможные расходы за рассчитываемый период через запятую.',
       'Бытовые расходы, Транспорт'
@@ -35,14 +36,14 @@ let appData = {
         'Транспорт и квартплата'
       );
       do {
-        question = prompt('Во сколько это обойдется?', '10000');
+        question = +prompt('Во сколько это обойдется?', '10000');
       } while (
         isNaN(question) ||
         question === '' ||
         question === 0 ||
         question === null
       );
-      appData.expenses[expenses1] = question;
+      appData.expenses[expenses1] = question; //Куда.сохраняется[ЧтоСохраняется:Ключ]=ЧтоСохраняется:значение;
     }
   },
   /////
@@ -53,21 +54,33 @@ let appData = {
     }
   },
 
-  ////////ЧИСТЫЕ накопления за месяц (Доходы минус расходы) "getAccumulatedMonth"
-  getAccumulatedMonth: function() {
-    return money - appData.expensesMonth;
+  ////////ЧИСТЫЕ накопления за месяц (Доходы минус расходы) "getBudget"
+  //Бюджет на день=
+  //Результат ЧИСТЫХ накоплений за месяц= поделённый на 30.
+  getBudget: function() {
+    appData.budgetMonth = appData.budget - appData.expensesMonth;
+    appData.budgetDay = appData.budgetMonth / 30;
   },
+  //return money - appData.expensesMonth;
+  /**
+   * let budgetDay = appData.getAccumulatedMonth() / 30; //Бюджет на день= Результат
+//ЧИСТЫХ накоплений за месяц= поделённый на 30.
+   * 8) getAccumulatedMonth переименовать в getBudget. Этот метод будет считать budgetMonth и budgetDay (перенести эти команды в этот метод)
+   * //6
+let budgetMonth = money - (totalExpensesNum1 + totalExpensesNum2);
+console.log('доход за месяц: ', budgetMonth);
+   */
   ////////За сколько месяцев будет достигнута цель? "getTargetMonth"
   getTargetMonth: function() {
-    return appData.mission / appData.getAccumulatedMonth();
+    return appData.mission / appData.budget;
   },
-  ///////Оценка уровня дневного бюджета. "getStatusIncome"
+  ///////”уровень дохода”. Оценка уровня дневного бюджета. "getStatusIncome"
   getStatusIncome: function() {
-    if (budgetDay >= 800) {
+    if (appData.budgetDay >= 800) {
       return '“Высокий уровень дохода”';
-    } else if (budgetDay >= 300 && budgetDay < 800) {
+    } else if (appData.budgetDay >= 300 && appData.budgetDay < 800) {
       return '“Средний уровень дохода”';
-    } else if (budgetDay > 0 && budgetDay < 300) {
+    } else if (appData.budgetDay > 0 && appData.budgetDay < 300) {
       return '“Низкий уровень дохода”';
     } else {
       return '“Что-то пошло не так”';
@@ -77,14 +90,14 @@ let appData = {
 ///////Вызов методов appData.asking
 appData.asking();
 appData.getExpensesMonth();
-appData.getAccumulatedMonth();
+appData.getBudget();
 appData.getTargetMonth();
 appData.getStatusIncome();
 
 //////////
 console.log('Расходы за месяц: ' + appData.expensesMonth);
 
-let budgetDay = appData.getAccumulatedMonth() / 30; //Бюджет на день= Результат
+//let budgetDay = appData.getBudget() / 30; //Бюджет на день= Результат
 //ЧИСТЫХ накоплений за месяц= поделённый на 30.
 
 //Посчитать за сколько месяцев будет достигнута цель накоплений- mission
@@ -97,10 +110,10 @@ if (appData.getTargetMonth() > 0) {
 }
 
 //Накопления за "любой период" - число месяцев произвольное
-appData.period = 4;
 console.log('Накопления за период в ' + appData.period + ' месяца/цев:');
-console.log(appData.getAccumulatedMonth() * appData.period);
+console.log(appData.budgetMonth * appData.period);
 
 //Вывод-
 //Тут была getStatusIncome
 console.log(appData.getStatusIncome());
+console.log(appData.money);
