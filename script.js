@@ -125,7 +125,7 @@ if (appData.mission / appData.budgetMonth > 0) {
 // console.log(appData.budgetMonth * appData.period);//DISABLE
 
 //Результат уровня доходов
-console.log(appData.getStatusIncome()); //Оставить ///!!///
+console.log(appData.budgetDay); //Оставить ///!!///
 //console.log(appData);
 //console.log('Наша программа включает в себя данные:');
 for (let key in appData) {
