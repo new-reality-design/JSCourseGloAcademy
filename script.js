@@ -1,11 +1,24 @@
 'use strict';
+/**
+ * 1) Сделать проверку при получении данных:
+   - наименование дополнительного источника заработка
+   - сумма дополнительного заработка
+   - ввод статьи обязательных расходов
+   - годовой процент депозита
+   - сумма депозита
 
-let money,
-  start = function() {
-    do {
-      money = +prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
-    } while (isNaN(money) || money === ' ' || money === null || money === 0);
-  };
+Что значит проверка данных: где должен быть текст там только текст, где цифры только цифры! 
+Если проверку не прошло, то переспрашивать!
+
+2) Возможные расходы (addExpenses) вывести строкой в консоль каждое слово с большой буквы слова разделены запятой и 
+пробелом
+ */
+let money;
+let start = function() {
+  do {
+    money = +prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
+  } while (isNaN(money) || money === ' ' || money === null || money === 0);
+};
 
 start();
 
@@ -25,13 +38,30 @@ let appData = {
   budgetMonth: 0,
   asking: function() {
     if (confirm('Есть ли у вас дополнительный источник заработка?')) {
-      let itemIncome = prompt(
-        'Какой у вас дополнительный заработок?',
-        'Парт-тайм'
+      //Наименование  дополнительного источника заработка
+      let itemIncome;
+      do {
+        itemIncome = prompt(
+          'Какой у вас дополнительный заработок?',
+          'Парт-тайм'
+        );
+      } while (
+        !isNaN(parseFloat(itemIncome)) === true ||
+        itemIncome === '' ||
+        itemIncome === null
       );
-      let cashIncome = +prompt(
-        'Сколько получается так заработать в месяц?',
-        '10000'
+      //Сумма дополнительного заработка
+      let cashIncome;
+      do {
+        cashIncome = +prompt(
+          'Сколько получается так заработать в месяц?',
+          '10000'
+        );
+      } while (
+        isNaN(cashIncome) ||
+        cashIncome === ' ' ||
+        cashIncome === null ||
+        cashIncome === 0
       );
       appData.income[itemIncome] = cashIncome;
     }
@@ -40,15 +70,43 @@ let appData = {
       'Перечислите возможные расходы за рассчитываемый период через запятую:',
       'Ремонт, лекарства, одежда, огненная вода, волшебные грибы.'
     );
-    appData.addExpenses = addExpenses.toLowerCase().split(',');
+    //addExpenses.join(',');
+    /**
+     *  addExpenses = appData.addExpenses;// = addExpenses.toLowerCase().split(','); /////
+    for (let i = 0; i < appData.addExpenses.length; i++) {
+      appData.addExpenses = appData.addExpenses[i][0].toUpperCase();
+      console.log('11111111111addExpenses: ', appData.addExpenses.join(', '));
+    }
+
+    appData.addExpenses = addExpenses.toLowerCase().split(', '); /////
+     */
+    appData.addExpenses = addExpenses.toLowerCase().split(', '); /////
+    //console.log('addExpenses2222222: ', addExpenses);
+    let separateWords = appData.addExpenses.map(function(item) {
+      return ' ' + item[0].toUpperCase() + item.slice(1).toLowerCase();
+    });
+    /////
+    console.log(
+      'Все слова с большой буквы, разделены запятой и пробелом: ',
+      separateWords.toString() //.split(', ')
+    );
+    /////
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
     for (let i = 0; i < 2; i++) {
-      let expensesItems, cashExpenses;
-      expensesItems = prompt(
-        'Введите обязательную статью расходов?',
-        'Карты, деньги, два ствола.'
+      let itemExpenses, cashExpenses;
+      //Ввод статьи обязательных расходов
+      do {
+        itemExpenses = prompt(
+          'Введите обязательную статью расходов?',
+          'Карты, деньги, два ствола.'
+        );
+      } while (
+        !isNaN(parseFloat(itemExpenses)) === true ||
+        itemExpenses === '' ||
+        itemExpenses === null
       );
       do {
+        //Сумма обязательных расходов
         cashExpenses = +prompt('Во сколько это обойдется?', '10000');
       } while (
         isNaN(cashExpenses) ||
@@ -56,7 +114,7 @@ let appData = {
         cashExpenses === 0 ||
         cashExpenses === null
       );
-      appData.expenses[expensesItems] = cashExpenses; //Куда.сохраняется[ЧтоСохраняется:Ключ]=ЧтоСохраняется:значение;
+      appData.expenses[itemExpenses] = cashExpenses; //Куда.сохраняется[ЧтоСохраняется:Ключ]=ЧтоСохраняется:значение;
     }
   },
   //
@@ -93,19 +151,35 @@ let appData = {
   //Метод-функция для получения информации о банковском депозите
   getInfoDeposit: function() {
     if (appData.deposit) {
-      appData.percentDeposit = +prompt(
-        'Какой процент от накопленной суммы начисляется за ваш банковский депозит?',
-        '3'
+      //Годовой процент депозита
+      do {
+        appData.percentDeposit = +prompt(
+          'Какой процент от накопленной суммы начисляется за ваш банковский депозит?',
+          '3'
+        );
+      } while (
+        isNaN(appData.percentDeposit) ||
+        appData.percentDeposit === ' ' ||
+        appData.percentDeposit === null ||
+        appData.percentDeposit === 0
       );
-      appData.moneyDeposit = +prompt(
-        'Какую сумму вы откладываете каждый месяц на депозитный счёт?',
-        '2000'
+      //Сумма депозита
+      do {
+        appData.moneyDeposit = +prompt(
+          'Какую сумму вы откладываете каждый месяц на депозитный счёт?',
+          '2000'
+        );
+      } while (
+        isNaN(appData.moneyDeposit) ||
+        appData.moneyDeposit === ' ' ||
+        appData.moneyDeposit === null ||
+        appData.moneyDeposit === 0
       );
     }
   },
   //Метод для умножения чистого дохода- нa период (в месяцах).
   calculateSavedMoney: function() {
-    return appData.budgetMonth * appData.period; ////!!!!
+    return appData.budgetMonth * appData.period;
   }
 };
 //Вызов методов appData.asking
@@ -145,8 +219,3 @@ for (let key in appData) {
   );
 }
 appData.getInfoDeposit();
-console.log(
-  appData.percentDeposit,
-  appData.moneyDeposit,
-  appData.calculateSavedMoney()
-);
