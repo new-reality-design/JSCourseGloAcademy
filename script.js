@@ -16,27 +16,32 @@ let appData = {
   expenses: {}, //Доп.расходы
   addExpenses: [], //Возможные расходы
   deposit: false,
-  percentDeposit: 0,//Проценты на депозит, прибыль от банка
-  moneyDeposit: 0,//Сумма, сколько откладывается на депозитные счет
+  percentDeposit: 0, //Проценты на депозит, прибыль от банка
+  moneyDeposit: 0, //Сумма, сколько откладывается на депозитные счет
   mission: 100000,
   period: 6,
   budgetDay: 0,
   expensesMonth: 0,
   budgetMonth: 0,
   asking: function() {
+    if (confirm('Есть ли у вас дополнительный источник заработка?')) {
+      let itemIncome = prompt(
+        'Какой у вас дополнительный заработок?',
+        'Парт-тайм'
+      );
+      let cashIncome = +prompt(
+        'Сколько получается так заработать в месяц?',
+        '10000'
+      );
+      appData.income[itemIncome] = cashIncome;
+    }
 
-      if(confirm('Есть ли у вас дополнительный источник заработка?')){
-        let itemIncome = prompt('Какой у вас дополнительный заработок?', 'Парт-тайм');
-        let cashIncome = prompt('Сколько получается так заработать в месяц?', 10000);
-        appData.income[itemIncome] = cashIncome;
-      }
-
-      let addExpenses = prompt(
+    let addExpenses = prompt(
       'Перечислите возможные расходы за рассчитываемый период через запятую:',
       'Ремонт, лекарства, одежда, огненная вода, волшебные грибы.'
     );
     appData.addExpenses = addExpenses.toLowerCase().split(',');
-    appData.deposit = confirm('Есть ли у вас депозит в банке?');    
+    appData.deposit = confirm('Есть ли у вас депозит в банке?');
     for (let i = 0; i < 2; i++) {
       let expensesItems, cashExpenses;
       expensesItems = prompt(
@@ -86,25 +91,29 @@ let appData = {
     }
   },
   //Метод-функция для получения информации о банковском депозите
-  getInfoDeposit: function(){
-    if(appData.deposit){
-      appData.percentDeposit = prompt('Какой процент от суммы вам начисляется за ваш банковский депозит?', '2.5%');
-      appData.moneyDeposit = prompt('Какую сумму вы откладываете каждый месяц на депозитный счёт?');
+  getInfoDeposit: function() {
+    if (appData.deposit) {
+      appData.percentDeposit = +prompt(
+        'Какой процент от накопленной суммы начисляется за ваш банковский депозит?',
+        '3'
+      );
+      appData.moneyDeposit = +prompt(
+        'Какую сумму вы откладываете каждый месяц на депозитный счёт?',
+        '2000'
+      );
     }
   },
   //Метод для умножения чистого дохода- нa период (в месяцах).
-  calculateSavedMoney: function(){
-    appData.budgetMonth * appData.period;
+  calculateSavedMoney: function() {
+    return appData.budgetMonth * appData.period; ////!!!!
   }
-
 };
 //Вызов методов appData.asking
 appData.asking();
 appData.getExpensesMonth();
 appData.getBudget();
 //
-appData.getTargetMonth();
-appData.getStatusIncome();
+//appData.getStatusIncome();
 //
 console.log('Расходы за месяц: ' + appData.expensesMonth); //Оставить
 
@@ -113,8 +122,7 @@ console.log('Расходы за месяц: ' + appData.expensesMonth); //Ос�
 if (appData.mission / appData.budgetMonth > 0) {
   //!!!///
   console.log(
-    'Cрок достижения цели в месяцах: ' +
-      Math.floor(appData.mission / appData.budgetMonth) //lesson 4
+    'Cрок достижения цели в месяцах: ' + Math.floor(appData.getTargetMonth()) //lesson 4
   );
 } else {
   console.log('“Цель не будет достигнута.”');
@@ -125,11 +133,20 @@ if (appData.mission / appData.budgetMonth > 0) {
 // console.log(appData.budgetMonth * appData.period);//DISABLE
 
 //Результат уровня доходов
-console.log(appData.budgetDay); //Оставить ///!!///
+console.log(appData.getStatusIncome()); //Оставить ///!!///
 //console.log(appData);
 //console.log('Наша программа включает в себя данные:');
 for (let key in appData) {
-  console.log('Наша программа включает в себя данные: ' + key + ' -со значением: ' + appData[key]);
+  console.log(
+    'Наша программа включает в себя данные: ' +
+      key +
+      ' -со значением: ' +
+      appData[key]
+  );
 }
 appData.getInfoDeposit();
-console.log(appData.percentDeposit, appData.moneyDeposit, appData.calculateSavedMoney());
+console.log(
+  appData.percentDeposit,
+  appData.moneyDeposit,
+  appData.calculateSavedMoney()
+);
