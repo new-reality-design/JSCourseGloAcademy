@@ -10,7 +10,7 @@ let start = function() {
 start();
 
 let appData = {
-  budget: money, //0,
+  budget: money, 
   income: {},
   addIncome: [], //Доп.доходы
   expenses: {}, //Доп.расходы
@@ -168,21 +168,18 @@ appData.getBudget();
 //
 console.log('Расходы за месяц: ' + appData.expensesMonth); //Оставить
 
-//Посчитать за сколько месяцев будет достигнута цель накоплений- mission appData.mission / appData.budgetMonth
-//if (appData.getTargetMonth() > 0) {
+//Посчитать за сколько месяцев будет достигнута цель накоплений- 
 if (appData.mission / appData.budgetMonth > 0) {
-  //!!!///
+  
   console.log(
-    'Cрок достижения цели в месяцах: ' + Math.floor(appData.getTargetMonth()) //lesson 4
+    'Cрок достижения цели в месяцах: ' + Math.floor(appData.getTargetMonth()) /
   );
 } else {
   console.log('“Цель не будет достигнута.”');
 } //Оставить
 
-//Накопления за "любой период" - число месяцев произвольное
-
 //Результат уровня доходов
-console.log(appData.getStatusIncome()); //Оставить ///!!///
+console.log(appData.getStatusIncome()); //Оставить 
 
 for (let key in appData) {
   console.log(
