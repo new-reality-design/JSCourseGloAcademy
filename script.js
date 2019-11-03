@@ -1,18 +1,5 @@
 'use strict';
-/**
- * 1) Сделать проверку при получении данных:
-   - наименование дополнительного источника заработка
-   - сумма дополнительного заработка
-   - ввод статьи обязательных расходов
-   - годовой процент депозита
-   - сумма депозита
 
-Что значит проверка данных: где должен быть текст там только текст, где цифры только цифры! 
-Если проверку не прошло, то переспрашивать!
-
-2) Возможные расходы (addExpenses) вывести строкой в консоль каждое слово с большой буквы слова разделены запятой и 
-пробелом
- */
 let money;
 let start = function() {
   do {
@@ -68,27 +55,17 @@ let appData = {
 
     let addExpenses = prompt(
       'Перечислите возможные расходы за рассчитываемый период через запятую:',
-      'Ремонт, лекарства, одежда, огненная вода, волшебные грибы.'
+      'Ремонт квартиры, лекарства, одежда, туризм.'
     );
-    //addExpenses.join(',');
-    /**
-     *  addExpenses = appData.addExpenses;// = addExpenses.toLowerCase().split(','); /////
-    for (let i = 0; i < appData.addExpenses.length; i++) {
-      appData.addExpenses = appData.addExpenses[i][0].toUpperCase();
-      console.log('11111111111addExpenses: ', appData.addExpenses.join(', '));
-    }
+    appData.addExpenses = addExpenses.toLowerCase().split(', ');
 
-    appData.addExpenses = addExpenses.toLowerCase().split(', '); /////
-     */
-    appData.addExpenses = addExpenses.toLowerCase().split(', '); /////
-    //console.log('addExpenses2222222: ', addExpenses);
     let separateWords = appData.addExpenses.map(function(item) {
       return ' ' + item[0].toUpperCase() + item.slice(1).toLowerCase();
     });
     /////
     console.log(
       'Все слова с большой буквы, разделены запятой и пробелом: ',
-      separateWords.toString() //.split(', ')
+      separateWords.toString()
     );
     /////
     appData.deposit = confirm('Есть ли у вас депозит в банке?');
@@ -203,13 +180,10 @@ if (appData.mission / appData.budgetMonth > 0) {
 } //Оставить
 
 //Накопления за "любой период" - число месяцев произвольное
-// console.log('Накопления за период в ' + appData.period + ' месяца/цев:');
-// console.log(appData.budgetMonth * appData.period);//DISABLE
 
 //Результат уровня доходов
 console.log(appData.getStatusIncome()); //Оставить ///!!///
-//console.log(appData);
-//console.log('Наша программа включает в себя данные:');
+
 for (let key in appData) {
   console.log(
     'Наша программа включает в себя данные: ' +
