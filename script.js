@@ -4,13 +4,13 @@ let money;
 let start = function() {
   do {
     money = +prompt('Ваш месячный доход? Укажите сумму в цифрах.', '50000');
-  } while (isNaN(money) || money === ' ' || money === null || money === 0);
+  } while (isNaN(money) || money === '' || money === null || money === 0);
 };
 
 start();
 
 let appData = {
-  budget: money, 
+  budget: money,
   income: {},
   addIncome: [], //Доп.доходы
   expenses: {}, //Доп.расходы
@@ -46,7 +46,7 @@ let appData = {
         );
       } while (
         isNaN(cashIncome) ||
-        cashIncome === ' ' ||
+        cashIncome === '' ||
         cashIncome === null ||
         cashIncome === 0
       );
@@ -136,7 +136,7 @@ let appData = {
         );
       } while (
         isNaN(appData.percentDeposit) ||
-        appData.percentDeposit === ' ' ||
+        appData.percentDeposit === '' ||
         appData.percentDeposit === null ||
         appData.percentDeposit === 0
       );
@@ -148,7 +148,7 @@ let appData = {
         );
       } while (
         isNaN(appData.moneyDeposit) ||
-        appData.moneyDeposit === ' ' ||
+        appData.moneyDeposit === '' ||
         appData.moneyDeposit === null ||
         appData.moneyDeposit === 0
       );
@@ -168,18 +168,17 @@ appData.getBudget();
 //
 console.log('Расходы за месяц: ' + appData.expensesMonth); //Оставить
 
-//Посчитать за сколько месяцев будет достигнута цель накоплений- 
+//Посчитать за сколько месяцев будет достигнута цель накоплений-
 if (appData.mission / appData.budgetMonth > 0) {
-  
   console.log(
-    'Cрок достижения цели в месяцах: ' + Math.floor(appData.getTargetMonth()) /
+    'Cрок достижения цели в месяцах: ' + Math.floor(appData.getTargetMonth())
   );
 } else {
   console.log('“Цель не будет достигнута.”');
 } //Оставить
 
 //Результат уровня доходов
-console.log(appData.getStatusIncome()); //Оставить 
+console.log(appData.getStatusIncome()); //Оставить
 
 for (let key in appData) {
   console.log(
